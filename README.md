@@ -47,13 +47,17 @@ What may not be obvious is that $(a[0] + a[1]) \equiv \sum a_n$ and the 2 is the
  
  Although this formula is greatly simplified from where we began, it still contains all of the terms of the array combined. The key to simplifying this is to realize that $Log_{10}a[i] + 1$ represents the length of the i<sup>th</sup> term. Our next optimization will be to create a frequency map of the number of digits so that map<sub>i</sub> = the number of list entries with i digits. Once we have created that map we can then rewrite the formula above such that it does not require nested loops:
  
-  $\text{len}(a) * \sum a_n + \sum a_n * map_1 * 10^{1} + \sum a_n * map_2 * 10^{2} + ... + \sum a_n * map_n * 10^{n}$
+  $\text{len}(a) * \sum a_n + \sum a_n * map_1 * 10^{1} + \sum a_n * map_2 * 10^{2} + ... + \sum a_n * map_l * 10^{l}$
+
+or:
+
+  $\text{len}(a) * \sum a_n + \sum {(\sum a_n * map_i * 10^{i})}$
   
 ### Pseudocoding a Solution
 
 * Sum the elements of the list
 * Create a frequency map of the number of digits in the terms of the list
-* Compute the final sum by multiplying the sum of the items in the list by the count of the list and then adding the product $\sum a_n * map_n * 10^{1}$
+* Compute the final sum by multiplying the sum of the items in the list by the count of the list and then adding the product $\sum a_n * map_i * 10^{i}$
 
 ### Final Performance
 
@@ -68,3 +72,9 @@ We will need to loop over the frequency map to compute the final summation. *O(1
 ## Demonstrated Solutions
 
 The solutions provided in this repository are intended to provide more insight into this optimization. The simple solution is an AP CSA compliant version of the O(n<sup>2</sup>). I am getting warnings on how my String concatenation is being done and would like feedback on how to write that expression. The optimal solution is a close to AP CSA compliant solution. Replacing the HashMap with an ArrayList may actually be an improvement. Finally a Java 8 streams solution is shown. I believe that the streams solution is much more understandable code and I look forward to an update from the College Board to add streams into the curriculum.
+
+# Wonderings
+
+Some additional research could be done to support this project. I would like to know if there is a formal way to analyze the initial equation and simplify it more directly. I was working out the math instictively in my head and had to come back to actually wrote the equations above to demonstrate to myself that the solution was correct.
+
+There must be some concept of the concatenation operation in this case that allows us to process the combination of the elements separately. Any references or reading would be appreciated.
